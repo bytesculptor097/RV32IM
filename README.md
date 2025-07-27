@@ -77,6 +77,7 @@ iverilog -o cpu.vvp alu_control.v alu.v core.v cu.v data_mem.v decode.v imem.v p
 - Add pipeline stages
 - More complete set of simulation/verification tests
 
+## Currently working on building an Assembler
 ## License
 
 This project is licensed under the MIT License. See [`LICENSE`](./LICENSE) for details.
