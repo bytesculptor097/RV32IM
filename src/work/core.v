@@ -1,15 +1,11 @@
 module core (
     input wire clk,
     input wire rst,
-    input wire [31:0] din,
-    output wire uart_txd 
+    output [7:0] result 
 );
 
+    wire [31:0] din;
 
-    // UART transmitter instance
-    wire txdone;
-    reg senddata  = 1'b0;
-    reg [7:0] txbyte = 8'b0;
 
 
 
@@ -41,13 +37,7 @@ module core (
 
 
     
-    uart_tx_8n1 uart_tx_inst (
-     .clk(clk),
-     .txbyte(txbyte),
-     .senddata(senddata),
-     .txdone(txdone),
-     .tx(uart_txd)
-    );
+
 
     // Instantiate PC
     pc pc_inst (
@@ -139,7 +129,7 @@ module core (
     reg [31:0] cycle = 0;
     always @(posedge clk) begin
         cycle <= cycle + 1;
-        $display("Cycle %0d: PC = %h, x3 = %h, x5 = %h", cycle, curr_addr, x3_debug, x5_debug);
+        $display("Cycle %0d: PC = %h, x3 = %h, x5 = %h result = %h", cycle, curr_addr, x3_debug, x5_debug, result);
 
         $display("Control: RegWrite=%b, ALUSrc=%b, memtoreg=%b, ALUOp=%b", regwrite, alusrc, memtoreg, aluop);
         $display("Core sees rd = %b (%d)", rd, rd);
@@ -164,23 +154,9 @@ module core (
         next_addr = curr_addr + 4;
     end
 
-    reg [3:0] uart_counter = 0;
+    assign result = x5_debug[7:0]; // Output the lower 8 bits of x5 for result
+   
 
- always @(posedge clk) begin
-    uart_counter <= uart_counter + 1;
-
-    if (uart_counter == 4'd15 && !senddata && !txdone) begin
-        txbyte <= x5_debug[7:0];  // Send lower byte of x5
-        senddata <= 1'b1;
-    end else begin
-        senddata <= 1'b0;
-    end
-
-    if (txdone) begin
-        $display("UART transmitted byte: %h", txbyte);
-    end
-
- end
 
  
     
