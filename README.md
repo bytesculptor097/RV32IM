@@ -63,7 +63,85 @@ This project is a clean-room implementation of a **32-bit RISC-V (RV32IM) CPU** 
 ```
 iverilog -o cpu.vvp alu_control.v alu.v core.v cu.v data_mem.v decode.v imem.v pc.v reg_file.v tb_core.v
 ```
-2. The module currently does `sw` operation.
+2. Please change the the instuction memory of the CPU like this:-
+```verilog
+module ram (
+    input wire clk,
+    input wire we,
+    input wire [31:0] addr,
+    input wire [31:0] din,
+    output reg [31:0] dout
+);
+    reg [31:0] mem [0:1023]; // 4KB RAM
+
+    always @(posedge clk) begin
+        if (we)
+            mem[addr[11:2]] <= din;
+        dout <= mem[addr[11:2]];
+    end
+
+
+    initial begin
+     mem[0] = 32'h022082b3;  // <------ Change this code for different operations
+    end
+
+endmodule
+
+
+```
+
+and,
+
+```verilog
+module regfile (
+    input wire clk,
+    input wire reg_write,
+    input wire [4:0] rs1,
+    input wire [4:0] rs2,
+    input wire [4:0] rd,
+    input wire [31:0] wd,
+    output wire [31:0] rs1_val,
+    output wire [31:0] rs2_val,
+    output wire [31:0] x3_debug,
+    output wire [31:0] x5_debug
+);
+
+    reg [31:0] regs [0:31];
+
+
+    // Read logic
+    assign rs1_val = regs[rs1];
+    assign rs2_val = regs[rs2];
+
+    // Write logic
+    always @(posedge clk) begin
+        if (reg_write && rd != 5'd0) begin
+            regs[rd] <= wd;
+            $display("WRITE: x%0d <= %h at time %0t", rd, wd, $time);
+        end
+    end
+
+    // Debug outputs
+    assign x3_debug = regs[3];
+    assign x5_debug = regs[5];
+
+ initial begin
+    regs[1] = 32'd15; // Change this value for the register source 1    
+    regs[2] = 32'd4;  // Change this value for the register source 2
+ end
+
+    always @(posedge clk) begin
+    $display("x3 = %h, x5 = %h", regs[3], regs[5]);
+    end
+
+initial begin
+ $display("rs1value = %h", rs1_val);
+ $display("rs2value = %h", rs2_val);
+end
+
+
+endmodule
+```
  
 ## Project Structure
 
