@@ -144,7 +144,7 @@ end
 endmodule
 ```
 ## Operations
-Use the following table's hex code for changing the opeartion in the instruction memory:-
+Use the following table's hex code for changing the operation in the instruction memory:-
 
 | Mnemonic | Format | Example Operands     | 32-bit Hex Code | Description                            |
 |----------|--------|----------------------|------------------|----------------------------------------|
