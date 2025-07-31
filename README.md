@@ -8,7 +8,7 @@ This project is a clean-room implementation of a **32-bit RISC-V (RV32IM) CPU** 
 - **Instruction Set**: Supports all **RV32I** (base integer) and **RV32M** (multiply/divide) instructions.
 - **Approach**: Designed for readability, modularity, and simplicity—making it perfect for teaching, experiments, or as a reference for your own designs.
 - **Motivation**: I wanted a CPU core that is easy to understand, customize, and integrate into larger SoC or FPGA projects, while adhering rigorously to the RISC-V open standard.
-
+---
 ## Features
 
 - **Fully compliant** with the RV32IM instruction set (RISC-V User Level ISA v2.1)
@@ -17,7 +17,7 @@ This project is a clean-room implementation of a **32-bit RISC-V (RV32IM) CPU** 
 - **Testbench provided** for basic functional verification
 - **Simple memory-mapped I/O** for easy SoC integration
 - Well-documented code with line-level comments
-
+---
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -29,7 +29,7 @@ This project is a clean-room implementation of a **32-bit RISC-V (RV32IM) CPU** 
 - [Planned Improvements](#planned-improvements)
 - [License](#license)
 - [Contact](#contact)
-
+---
 ## Getting Started
 
 1. **Clone the repository:**
@@ -42,7 +42,7 @@ This project is a clean-room implementation of a **32-bit RISC-V (RV32IM) CPU** 
    - GTKWave (optional, for waveform visualization)
 
  
-
+---
 ## CPU Architecture
 
 - **Single-cycled**: Single-cycled CPU
@@ -56,14 +56,14 @@ This project is a clean-room implementation of a **32-bit RISC-V (RV32IM) CPU** 
    - `reg_file.v` : With 32 registers (x0 - x31)
    - `alu.v` and `alu_control.v: ALU and branch resolution
    - `dat_mem.v`: Data memory interface
-
+---
 ## Project Structure
 
 - `/rtl` — Core Verilog source files ( ALU, regfile, etc.)
 - `/testbench` — Testbenches and basic memory models
 - `/docs` — Architecture diagrams
 - `/fpga` — Implementation of the CPU on VSDSquadronFM
-
+---
 ## Usage and Simulation
 
 1. Type the command in you terminal:- (make sure to change the directory to src/rtl folder and ensure to download iverilog in your cmd or text editor) 
@@ -150,6 +150,7 @@ end
 
 endmodule
 ```
+---
 ## Operations
 Use the following table's hex code for changing the operation in the instruction memory:-
 
@@ -186,7 +187,7 @@ Use the following table's hex code for changing the operation in the instruction
 | rem      | R-type | rem x5, x1, x2       | 0x0220e1b3       | x5 = x1 % x2 (signed)                   |
 | remu     | R-type | remu x5, x1, x2      | 0x0220f1b3       | x5 = x1 % x2 (unsigned)                 |
 
-
+---
 ## FPGA Implementation
 We will implement this core on [VSDSquadronFM](https://www.vlsisystemdesign.com/vsdsquadronfm/), follow the steps for implementation:-
 
@@ -204,17 +205,16 @@ make build
 sudo make flash
 ```
 ---
-
 ## Planned Improvements
 
 - Support for additional RISC-V extensions (such as Zicsr, atomics)
 - Add pipeline stages
 - More complete set of simulation/verification tests
 
-
+---
 ## License
 
 This project is licensed under the MIT License. See [`LICENSE`](./LICENSE) for details.
-
+---
 
 
