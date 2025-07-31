@@ -1,3 +1,0 @@
-set_io clk 47
-set_io rst 48
-set_io uart_txd 14
