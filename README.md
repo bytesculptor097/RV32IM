@@ -28,7 +28,6 @@ This project is a clean-room implementation of a **32-bit RISC-V (RV32IM) CPU** 
 - [FPGA Implementation](#fpga-implementation)
 - [Planned Improvements](#planned-improvements)
 - [License](#license)
-- [Contact](#contact)
 ---
 ## Getting Started
 
