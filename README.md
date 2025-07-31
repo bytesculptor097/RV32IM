@@ -23,6 +23,7 @@ This project is a clean-room implementation of a **32-bit RISC-V (RV32IM) CPU** 
 - [Getting Started](#getting-started)
 - [CPU Architecture](#cpu-architecture)
 - [Usage and Simulation](#usage-and-simulation)
+- [Operations](#operations)
 - [Project Structure](#project-structure)
 - [Planned Improvements](#planned-improvements)
 - [License](#license)
@@ -142,7 +143,41 @@ end
 
 endmodule
 ```
- 
+## Operations
+Use the following table's hex code for changing the opeartion in the instruction memory:-
+
+| Mnemonic | Format | Example Operands     | 32-bit Hex Code | Description                            |
+|----------|--------|----------------------|------------------|----------------------------------------|
+| add      | R-type | add x5, x1, x2       | 0x002081b3       | x5 = x1 + x2                            |
+| sub      | R-type | sub x5, x1, x2       | 0x402081b3       | x5 = x1 - x2                            |
+| and      | R-type | and x5, x1, x2       | 0x002071b3       | x5 = x1 & x2                            |
+| or       | R-type | or x5, x1, x2        | 0x002061b3       | x5 = x1 | x2                            |
+| xor      | R-type | xor x5, x1, x2       | 0x002051b3       | x5 = x1 ^ x2                            |
+| sll      | R-type | sll x5, x1, x2       | 0x002011b3       | x5 = x1 << x2                           |
+| srl      | R-type | srl x5, x1, x2       | 0x002051b3       | x5 = x1 >> x2 (logical)                 |
+| sra      | R-type | sra x5, x1, x2       | 0x402051b3       | x5 = x1 >> x2 (arithmetic)              |
+| slt      | R-type | slt x5, x1, x2       | 0x002021b3       | x5 = (x1 < x2) ? 1 : 0                  |
+| sltu     | R-type | sltu x5, x1, x2      | 0x002031b3       | x5 = (x1 < x2 unsigned) ? 1 : 0         |
+| addi     | I-type | addi x5, x1, 10      | 0x00a08093       | x5 = x1 + 10                            |
+| andi     | I-type | andi x5, x1, 10      | 0x00a0f093       | x5 = x1 & 10                            |
+| ori      | I-type | ori x5, x1, 10       | 0x00a0e093       | x5 = x1 | 10                            |
+| xori     | I-type | xori x5, x1, 10      | 0x00a0c093       | x5 = x1 ^ 10                            |
+| lw       | I-type | lw x5, 0(x1)         | 0x0000a283       | x5 = MEM[x1 + 0]                        |
+| sw       | S-type | sw x2, 0(x1)         | 0x0020a023       | MEM[x1 + 0] = x2                        |
+| beq      | B-type | beq x1, x2, +4       | 0x00208663       | if (x1 == x2) PC += 4                   |
+| bne      | B-type | bne x1, x2, +4       | 0x00209663       | if (x1 != x2) PC += 4                   |
+| jal      | J-type | jal x5, +4           | 0x0040006f       | x5 = PC+4; PC += 4                      |
+| jalr     | I-type | jalr x5, 0(x1)       | 0x00008067       | x5 = PC+4; PC = x1                      |
+| lui      | U-type | lui x5, 0x12345      | 0x123450b7       | x5 = 0x12345000                         |
+| auipc    | U-type | auipc x5, 0x12345    | 0x12345097       | x5 = PC + 0x12345000                    |
+| mul      | R-type | mul x5, x1, x2       | 0x022081b3       | x5 = x1 * x2                            |
+| mulh     | R-type | mulh x5, x1, x2      | 0x022091b3       | x5 = high(x1 * x2 signed)               |
+| mulhsu   | R-type | mulhsu x5, x1, x2    | 0x0220a1b3       | x5 = high(x1 signed * x2 unsigned)      |
+| mulhu    | R-type | mulhu x5, x1, x2     | 0x0220b1b3       | x5 = high(x1 * x2 unsigned)             |
+| div      | R-type | div x5, x1, x2       | 0x0220c1b3       | x5 = x1 / x2 (signed)                   |
+| divu     | R-type | divu x5, x1, x2      | 0x0220d1b3       | x5 = x1 / x2 (unsigned)                 |
+| rem      | R-type | rem x5, x1, x2       | 0x0220e1b3       | x5 = x1 % x2 (signed)                   |
+| remu     | R-type | remu x5, x1, x2      | 0x0220f1b3       | x5 = x1 % x2 (unsigned)                 |
 ## Project Structure
 
 - `/rtl` — Core Verilog source files ( ALU, regfile, etc.)
