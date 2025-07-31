@@ -212,7 +212,7 @@ sudo make flash
 - More complete set of simulation/verification tests
 
 ---
-## License
+# License
 
 This project is licensed under the MIT License. See [`LICENSE`](./LICENSE) for details.
 ---
