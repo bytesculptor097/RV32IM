@@ -22,9 +22,10 @@ This project is a clean-room implementation of a **32-bit RISC-V (RV32IM) CPU** 
 
 - [Getting Started](#getting-started)
 - [CPU Architecture](#cpu-architecture)
+- [Project Structure](#project-structure)
 - [Usage and Simulation](#usage-and-simulation)
 - [Operations](#operations)
-- [Project Structure](#project-structure)
+- [FPGA Implementation](#fpga-implementation)
 - [Planned Improvements](#planned-improvements)
 - [License](#license)
 - [Contact](#contact)
@@ -56,6 +57,12 @@ This project is a clean-room implementation of a **32-bit RISC-V (RV32IM) CPU** 
    - `alu.v` and `alu_control.v: ALU and branch resolution
    - `dat_mem.v`: Data memory interface
 
+## Project Structure
+
+- `/rtl` — Core Verilog source files ( ALU, regfile, etc.)
+- `/testbench` — Testbenches and basic memory models
+- `/docs` — Architecture diagrams
+- `/fpga` — Implementation of the CPU on VSDSquadronFM
 
 ## Usage and Simulation
 
@@ -178,11 +185,25 @@ Use the following table's hex code for changing the operation in the instruction
 | divu     | R-type | divu x5, x1, x2      | 0x0220d1b3       | x5 = x1 / x2 (unsigned)                 |
 | rem      | R-type | rem x5, x1, x2       | 0x0220e1b3       | x5 = x1 % x2 (signed)                   |
 | remu     | R-type | remu x5, x1, x2      | 0x0220f1b3       | x5 = x1 % x2 (unsigned)                 |
-## Project Structure
 
-- `/rtl` — Core Verilog source files ( ALU, regfile, etc.)
-- `/testbench` — Testbenches and basic memory models
-- `/docs` — Architecture diagrams 
+
+## FPGA Implementation
+We will implement this core on [VSDSquadronFM](https://www.vlsisystemdesign.com/vsdsquadronfm/), follow the steps for implementation:-
+
+1. Follow the environment setup instructions in [this](https://github.com/bytesculptor097/VSDSquadron_FM) repository of mine.
+2. Then open the `fpga` directory present inside the src using the terminal, by:-
+```bash
+cd  git/cloned/path/of/this/repository/src/fpga
+```
+3. Then type:-
+```bash
+make build
+```
+4. Then make sure to connect the VSDSquadronFM board, and then:-
+```bash
+sudo make flash
+```
+---
 
 ## Planned Improvements
 
