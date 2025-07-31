@@ -195,5 +195,5 @@ Use the following table's hex code for changing the operation in the instruction
 
 This project is licensed under the MIT License. See [`LICENSE`](./LICENSE) for details.
 
-# Currently working on building an Assembler for RISC-V Assembly
+
 
